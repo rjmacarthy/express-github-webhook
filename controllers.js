@@ -12,11 +12,12 @@ const deploy = (req, res) => {
 
   exec(`sh ${EXEC_SCRIPT}`, (err, stdout, stderr) => {
     if (err) {
-      writeFileSync('log.txt', stderr)
+      writeFileSync('error.txt', stderr)
       res.json({
         error: stderr,
       })
     } else {
+      writeFileSync('error.txt', '')
       writeFileSync('log.txt', ref)
       res.json(stdout)
     }
@@ -25,8 +26,10 @@ const deploy = (req, res) => {
 
 const index = (_, res) => {
   const lastSha = readFileSync('log.txt', 'utf-8')
+  const lastError = readFileSync('error.txt', 'utf-8')
   res.json({
     last: lastSha,
+    error: lastError,
   })
 }
 
