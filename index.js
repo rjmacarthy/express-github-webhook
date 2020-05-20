@@ -5,7 +5,7 @@ const app = express()
 const port = process.env.PORT
 
 app
-  .post('/', (req, res) => {
+  .post('/deploy', (req, res) => {
     const signature = `sha1=${crypto
       .createHmac('sha1', SECRET)
       .update(chunk)
@@ -29,7 +29,7 @@ app
 
     res.json(isAllowed, isMaster)
   })
-  .get('/', (_, res) => {
+  .get('/deploy', (_, res) => {
     res.json('eosui-deployer')
   })
 
