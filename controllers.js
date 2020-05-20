@@ -4,7 +4,7 @@ const { EXEC_SCRIPT } = process.env
 
 const deploy = (req, res) => {
   const { ref, after } = req.body
-  const isTargetBranch = refs === BRANCH
+  const isTargetBranch = ref === BRANCH
 
   if (!isTargetBranch) {
     return res.json(false)
