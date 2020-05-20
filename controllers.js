@@ -18,8 +18,8 @@ const deploy = (req, res) => {
       writeFileSync('log.txt', after)
     }
   })
-  
-  res.json(stdout)
+
+  res.json(true)
 }
 
 const index = (_, res) => {
