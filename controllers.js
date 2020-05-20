@@ -3,10 +3,10 @@ const { exec } = require('child_process')
 const { EXEC_SCRIPT } = process.env
 
 const deploy = (req, res) => {
-  const { refs, ref } = req.body
-  const master = refs === 'refs/heads/master'
+  const { ref, after } = req.body
+  const isTargetBranch = refs === BRANCH
 
-  if (!master) {
+  if (!isTargetBranch) {
     return res.json(false)
   }
 
@@ -18,7 +18,7 @@ const deploy = (req, res) => {
       })
     } else {
       writeFileSync('error.txt', '')
-      writeFileSync('log.txt', ref)
+      writeFileSync('log.txt', after)
       res.json(stdout)
     }
   })
