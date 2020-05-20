@@ -1,10 +1,13 @@
-const { deploy, index } = require('./controllers')
+const { deploy, index, hash, error } = require('./controllers')
 const { verify } = require('./middleware')
 
 const router = app => {
   app
-    .get('/deploy', index)
+    .get('/', index)
     .post('/deploy', verify, deploy)
+
+  app.get('/hash', hash)
+    .get('/error', error)
 }
 
 module.exports = {

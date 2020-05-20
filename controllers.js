@@ -1,21 +1,23 @@
 const { writeFileSync, readFileSync } = require('fs')
 const { exec } = require('child_process')
 const { EXEC_SCRIPT, BRANCH } = process.env
+const { writeErr, writeHash } = require('./logger')
 
 const deploy = (req, res) => {
-  const { ref, after } = req.body
+  const { ref, after: sha } = req.body
   const isTargetBranch = ref === BRANCH
 
   if (!isTargetBranch) {
-    return res.json(false)
+    return res.end()
   }
 
   exec(`sh ${EXEC_SCRIPT}`, (err, stdout, stderr) => {
     if (err) {
-      writeFileSync('error.txt', stderr)
+      writeErr(stderr)
     } else {
-      writeFileSync('error.txt', '')
-      writeFileSync('log.txt', after)
+      writeErr('')
+      writeHash(sha)
+      writeStdOut(stdout)
     }
   })
 
@@ -23,15 +25,20 @@ const deploy = (req, res) => {
 }
 
 const index = (_, res) => {
-  const lastSha = readFileSync('log.txt', 'utf-8')
-  const lastError = readFileSync('error.txt', 'utf-8')
-  res.json({
-    last: lastSha,
-    error: lastError,
-  })
+  res.end()
+}
+
+const hash = (_, res) => {
+  res.json(readFileSync('hash.txt', 'utf-8'))
+}
+
+const error = (_, res) => {
+  res.json(readFileSync('error.txt', 'utf-8'))
 }
 
 module.exports = {
   deploy,
   index,
+  hash,
+  error,
 }
