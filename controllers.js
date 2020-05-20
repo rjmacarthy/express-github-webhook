@@ -1,6 +1,6 @@
 const { writeFileSync, readFileSync } = require('fs')
 const { exec } = require('child_process')
-const { EXEC_SCRIPT } = process.env
+const { EXEC_SCRIPT, BRANCH } = process.env
 
 const deploy = (req, res) => {
   const { ref, after } = req.body
