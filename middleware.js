@@ -19,7 +19,7 @@ const verify = (req, _, next) => {
     !crypto.timingSafeEqual(digest, checksum)
   ) {
     return next(
-      `Request body digest (${digest}) did not match x-hub-signature (${checksum})`,
+      `Request body digest did not match x-hub-signature`,
     )
   }
   return next()
