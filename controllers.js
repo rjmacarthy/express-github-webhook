@@ -4,7 +4,7 @@ const { EXEC_SCRIPT, BRANCH } = process.env
 const { writeErr, writeHash } = require('./logger')
 
 const deploy = (req, res) => {
-  const { ref, after: sha } = req.body
+  const { ref, after: hash } = req.body
   const isTargetBranch = ref === BRANCH
 
   if (!isTargetBranch) {
@@ -16,8 +16,7 @@ const deploy = (req, res) => {
       writeErr(stderr)
     } else {
       writeErr('')
-      writeHash(sha)
-      writeStdOut(stdout)
+      writeHash(hash)
     }
   })
 
@@ -25,20 +24,15 @@ const deploy = (req, res) => {
 }
 
 const index = (_, res) => {
-  res.end()
-}
-
-const hash = (_, res) => {
-  res.json(readFileSync('hash.txt', 'utf-8'))
-}
-
-const error = (_, res) => {
-  res.json(readFileSync('error.txt', 'utf-8'))
+  const hash = readFileSync('hash.txt', 'utf-8')
+  const error = readFileSync('error.txt', 'utf-8')
+  res.json({
+    hash,
+    error,
+  })
 }
 
 module.exports = {
   deploy,
   index,
-  hash,
-  error,
 }
