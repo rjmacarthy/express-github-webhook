@@ -19,7 +19,7 @@ const deploy = (req, res) => {
     }
   })
 
-  res.json(true)
+  res.end()
 }
 
 const index = (_, res) => {
