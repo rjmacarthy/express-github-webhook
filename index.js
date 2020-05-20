@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT
 const SECRET = process.env.SECRET
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -18,6 +17,7 @@ app
       .digest('hex')}`
     const event = req.headers['x-github-event']
     const allowed = req.headers['x-hub-signature'] === signature
+    console.log(signature, req.headers['x-hub-signature'])
     const master = payload.ref === 'refs/heads/master'
     if (allowed && isMaster && event === 'push') {
       return res.json({ allowed, master })
