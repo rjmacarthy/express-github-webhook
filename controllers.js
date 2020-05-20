@@ -13,15 +13,13 @@ const deploy = (req, res) => {
   exec(`sh ${EXEC_SCRIPT}`, (err, stdout, stderr) => {
     if (err) {
       writeFileSync('error.txt', stderr)
-      res.json({
-        error: stderr,
-      })
     } else {
       writeFileSync('error.txt', '')
       writeFileSync('log.txt', after)
-      res.json(stdout)
     }
   })
+  
+  res.json(stdout)
 }
 
 const index = (_, res) => {
