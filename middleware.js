@@ -3,33 +3,32 @@ const { SECRET } = process.env
 const { err } = require('./logger')
 
 const verify = (req, _, next) => {
- try {
-  if (!req.body) {
-    return next('Request body empty')
-  }
-  const payload = JSON.stringify(req.body)
-  const signature = req.get('x-hub-signature') || ''
-  const hmac = crypto.createHmac('sha1', SECRET)
-  const digest = Buffer.from(
+  try {
+    if (!req.body) {
+      return next('Request body empty')
+    }
+    const payload = JSON.stringify(req.body)
+    const signature = req.get('x-hub-signature') || ''
+    const hmac = crypto.createHmac('sha1', SECRET)
+    const digest = Buffer.from(
     `sha1=${hmac.update(payload).digest('hex')}`,
-    'utf8',
-  )
-  const checksum = Buffer.from(signature, 'utf8')
-  if (
-    checksum.length !== digest.length ||
-    !crypto.timingSafeEqual(digest, checksum)
-  ) {
-    return next(
-      `Request body digest did not match x-hub-signature`,
+    'utf8'
     )
+    const checksum = Buffer.from(signature, 'utf8')
+    if (
+      checksum.length !== digest.length ||
+    !crypto.timingSafeEqual(digest, checksum)
+    ) {
+      return next(
+        'Request body digest did not match x-hub-signature'
+      )
+    }
+    return next()
+  } catch (e) {
+    err(e.message)
   }
-  return next()
- } catch (e) {
-  err(e.message)
- }
-  
 }
 
 module.exports = {
-  verify,
+  verify
 }
