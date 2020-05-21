@@ -13,7 +13,7 @@ const deploy = (req, res) => {
   }
 
   exec(`sh ${EXEC_SCRIPT}`, (err, stdout, stderr) => {
-    if (err) {
+    if (err && stderr) {
       writeErr(stderr)
     } else {
       writeErr('')
