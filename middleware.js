@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 const { SECRET } = process.env
-const { err } = require('./logger')
+const { writeErr } = require('./logger')
 
 const verify = (req, _, next) => {
   try {
@@ -25,7 +25,7 @@ const verify = (req, _, next) => {
     }
     return next()
   } catch (e) {
-    err(e.message)
+    writeErr(e.message)
   }
 }
 
