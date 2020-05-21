@@ -1,7 +1,7 @@
 {
-  "name": "eosui-deployer",
+  "name": "express-github-webhook",
   "version": "1.0.0",
-  "description": "",
+  "description": "An express server which listens for push webhooks from github.com.",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -14,6 +14,6 @@
   "scripts": {
     "test": "standard"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Richard Macarthy - rjmacarthy",
+  "license": "MIT"
 }
