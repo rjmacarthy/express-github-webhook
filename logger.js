@@ -1,14 +1,19 @@
 const { writeFileSync } = require('fs')
 
 const writeErr = err => {
-  writeFileSync('error.txt', err)
+  err && writeFileSync('./log/error.log', err)
 }
 
 const writeHash = hash => {
-  writeFileSync('hash.txt', hash)
+  hash && writeFileSync('./log/hash.log', hash)
+}
+
+const writeStdout = stdout => {
+  stdout && writeFileSync('./log/stdout.log', stdout)
 }
 
 module.exports = {
   writeErr,
   writeHash,
+  writeStdout
 }
