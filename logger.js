@@ -15,7 +15,7 @@ const init = () => {
 }
 
 const writeErr = err => {
-  err && writeFileSync('./log/error.log', err)
+  writeFileSync('./log/error.log', err)
 }
 
 const writeHash = hash => {
