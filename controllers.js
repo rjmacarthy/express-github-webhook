@@ -1,7 +1,6 @@
 const { readFileSync } = require('fs')
 const { exec } = require('child_process')
 const { EXEC_SCRIPT, BRANCH } = process.env
-
 const { writeErr, writeHash, writeStdout } = require('./logger')
 
 const deploy = (req, res) => {
