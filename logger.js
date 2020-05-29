@@ -7,8 +7,8 @@ const init = () => {
   !existsSync(logPath) && writeFileSync(logPath, '')
 }
 
-const log = log => {
-  writeFileSync('./log/deploy.log', log)
+const log = text => {
+  writeFileSync(logPath, text)
 }
 
 module.exports = {
