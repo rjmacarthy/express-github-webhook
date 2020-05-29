@@ -28,9 +28,11 @@ const deploy = (req, res) => {
 const index = (_, res) => {
   const hash = readFileSync('./log/hash.log', 'utf-8') || ''
   const error = readFileSync('./log/error.log', 'utf-8') || ''
+  const stdout = readFileSync('./log/stdout.log', 'utf-8') || ''
   res.json({
     hash,
-    error: !!error
+    error,
+    stdout
   })
 }
 
