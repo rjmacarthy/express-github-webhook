@@ -1,9 +1,13 @@
 const { existsSync, writeFileSync, mkdirSync } = require('fs')
 
-const logPath = './log/deploy.log'
+const logFolder = './log'
+
+const logFile = 'deploy.log'
+
+const logPath = `${logFolder}/${logFile}`
 
 const init = () => {
-  !existsSync('./log') && mkdirSync('./log')
+  !existsSync(logFolder) && mkdirSync(logFolder)
   !existsSync(logPath) && writeFileSync(logPath, '')
 }
 
