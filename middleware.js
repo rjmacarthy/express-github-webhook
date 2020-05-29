@@ -1,6 +1,7 @@
 const crypto = require('crypto')
-const { SECRET } = process.env
+const { SECRET, BASIC_AUTH_PASSWORD } = process.env
 const { writeErr } = require('./logger')
+const basicAuth = require('express-basic-auth')
 
 const verify = (req, _, next) => {
   try {
@@ -29,6 +30,12 @@ const verify = (req, _, next) => {
   }
 }
 
+const auth = basicAuth({
+  challenge: true,
+  users: { admin: BASIC_AUTH_PASSWORD }
+})
+
 module.exports = {
-  verify
+  verify,
+  auth
 }

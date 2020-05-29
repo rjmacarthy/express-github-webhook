@@ -1,10 +1,10 @@
 const { exec } = require('child_process')
-const { EXEC_SCRIPT, BRANCH } = process.env
+const { EXEC_SCRIPT, BRANCH: TARGET_BRANCH } = process.env
 const { writeErr, writeHash, writeStdout, getLog } = require('./logger')
 
 const deploy = (req, res) => {
   const { ref, after: hash } = req.body
-  const isTargetBranch = ref === BRANCH
+  const isTargetBranch = ref === TARGET_BRANCH
 
   if (!isTargetBranch) {
     return res.end()
