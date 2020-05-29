@@ -1,31 +1,18 @@
-const { existsSync, writeFileSync, mkdirSync, readFileSync } = require('fs')
+const { existsSync, writeFileSync, mkdirSync } = require('fs')
 
-const logPaths = [
-  'error.log',
-  'stdout.log'
-]
+const logPath = './log/deploy.log'
 
 const init = () => {
   !existsSync('./log') && mkdirSync('./log')
-  logPaths.map((p) => {
-    const path = `./log/${p}`
-    !existsSync() && writeFileSync(path, '')
-  })
+  !existsSync(logPath) && writeFileSync(logPath, '')
 }
 
-const writeErr = err => {
-  writeFileSync('./log/error.log', err)
+const log = log => {
+  writeFileSync('./log/deploy.log', log)
 }
-
-const writeStdout = stdout => {
-  writeFileSync('./log/stdout.log', stdout)
-}
-
-const getLog = name => readFileSync(`./log/${name}.log`, 'utf-8') || ''
 
 module.exports = {
-  writeErr,
-  writeStdout,
+  log,
   init,
-  getLog
+  logPath
 }
