@@ -1,4 +1,4 @@
-const { existsSync, writeFileSync, mkdirSync } = require('fs')
+const { existsSync, writeFileSync, mkdirSync, readFileSync } = require('fs')
 
 const logPaths = [
   'error.log',
@@ -26,9 +26,12 @@ const writeStdout = stdout => {
   stdout && writeFileSync('./log/stdout.log', stdout)
 }
 
+const getLog = name => readFileSync(`./log/${name}.log`, 'utf-8') || ''
+
 module.exports = {
   writeErr,
   writeHash,
   writeStdout,
-  init
+  init,
+  getLog
 }

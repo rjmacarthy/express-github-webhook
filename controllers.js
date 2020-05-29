@@ -1,7 +1,6 @@
-const { readFileSync } = require('fs')
 const { exec } = require('child_process')
 const { EXEC_SCRIPT, BRANCH } = process.env
-const { writeErr, writeHash, writeStdout } = require('./logger')
+const { writeErr, writeHash, writeStdout, getLog } = require('./logger')
 
 const deploy = (req, res) => {
   const { ref, after: hash } = req.body
@@ -25,13 +24,10 @@ const deploy = (req, res) => {
 }
 
 const index = (_, res) => {
-  const hash = readFileSync('./log/hash.log', 'utf-8') || ''
-  const error = readFileSync('./log/error.log', 'utf-8') || ''
-  const stdout = readFileSync('./log/stdout.log', 'utf-8') || ''
   res.json({
-    hash,
-    error,
-    stdout
+    hash: getLog('hash'),
+    error: getLog('error'),
+    stdout: getLog('stdout')
   })
 }
 
