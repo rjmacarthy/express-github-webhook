@@ -11,12 +11,7 @@ const init = () => {
   !existsSync(logPath) && writeFileSync(logPath, '')
 }
 
-const log = text => {
-  writeFileSync(logPath, text)
-}
-
 module.exports = {
-  log,
   init,
   logPath
 }

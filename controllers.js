@@ -1,6 +1,7 @@
-const { exec } = require('child_process')
+const cp = require('child_process')
+const fs = require('fs')
 const { EXEC_SCRIPT, BRANCH: TARGET_BRANCH } = process.env
-const { log, logPath } = require('./logger')
+const logger = require('./logger')
 const { join } = require('path')
 
 const deploy = (req, res) => {
@@ -11,15 +12,15 @@ const deploy = (req, res) => {
     return res.end()
   }
 
-  exec(`sh ${EXEC_SCRIPT}`, (_, stdout, stderr) => {
-    log(stdout || stderr)
+  cp.exec(`sh ${EXEC_SCRIPT}`, (_, stdout, stderr) => {
+    fs.writeFileSync(logger.logPath, stdout || stderr)
   })
 
-  res.end()
+  res.status(200).end()
 }
 
 const index = (_, res) => {
-  res.sendFile(join(__dirname, logPath))
+  res.sendFile(join(__dirname, logger.logPath))
 }
 
 module.exports = {
