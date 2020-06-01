@@ -1,5 +1,5 @@
 const sinon = require('sinon')
-const { beforeEach, afterEach, describe, it } = require('mocha')
+const { before, beforeEach, afterEach, describe, it } = require('mocha')
 const { expect } = require('chai')
 const { createRequest, createResponse } = require('node-mocks-http')
 const cp = require('child_process')
@@ -25,7 +25,6 @@ describe('controllers suite', () => {
     exec = sinon.stub(cp, 'exec')
     res.sendFile = sinon.spy()
     res.end = sinon.spy()
-    
   })
 
   afterEach(() => {
@@ -69,7 +68,7 @@ describe('utils', () => {
   it('can execute and write a log', () => {
     utils.handler(null, 'test', null)
   })
-  
+
   it('can execute and write an error', () => {
     utils.handler(null, null, 'error')
   })
