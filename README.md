@@ -5,11 +5,13 @@ An express server to listen for `push` events from a specific branch of github r
 
 Set environment variables.
 
+```
 PORT=3000
 SECRET=YOUR_GITHUB_WEBHOOK_SECRET
 EXEC_SCRIPT=/home/test/test.sh
 BRANCH=refs/head/master
 BASIC_AUTH_PASSWORD=test
+```
 
 ### Install
 
